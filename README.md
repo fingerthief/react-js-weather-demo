@@ -4,6 +4,7 @@
 # Running The Application
 
 - `npm install` to install the required packages.
-- `npm run start` to start the application on a local server on port 4000
+- `npm run start` to build and run the application on a local server on port `8080`
+  
 
-![Screenshot 2024-03-29 at 18-59-22 React App](https://github.com/fingerthief/react-js-weather-demo/assets/2380471/f3aeb4bc-d3f5-4b6d-8503-18a58e44dddf)
+![Screenshot 2024-03-30 at 13-13-40 React App](https://github.com/fingerthief/react-js-weather-demo/assets/2380471/85003269-ba21-4538-93eb-d7e71aa49367)
