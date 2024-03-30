@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import WeatherApp from './WeatherApp';
+import WeatherApp from './weather-app';
 
 test('renders learn react link', () => {
   render(<WeatherApp />);

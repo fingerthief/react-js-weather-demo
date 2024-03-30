@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./WeatherApp.css";
+import "./weather-app.css";
+import { createForecastCards } from "./functions/forecast-utils";
 
 const weatherApiKey = process.env.REACT_APP_WEATHER_API_KEY;
 
@@ -78,24 +79,6 @@ function WeatherApp() {
             )}
         </div>
     );
-}
-
-function ForecastCard({ date, day }) {
-    return (
-        <div className="forecast-card">
-            <p>{date}</p>
-            <p>{day.condition.text}</p>
-            <p>Max: {day.maxtemp_f}°F</p>
-            <p>Min: {day.mintemp_f}°F</p>
-            <img src={day.condition.icon} alt="Forecast"></img>
-        </div>
-    );
-}
-
-function createForecastCards(forecast) {
-    return forecast.map((day, index) => (
-        <ForecastCard key={index} date={day.date} day={day.day} />
-    ));
 }
 
 export default WeatherApp;
