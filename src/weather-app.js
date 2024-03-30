@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./weather-app.css";
 import { createForecastCards } from "./functions/forecast-utils";
+import { createCurrentWeather } from "./functions/current-weather-utils";
 
 const weatherApiKey = process.env.REACT_APP_WEATHER_API_KEY;
 
@@ -42,7 +43,7 @@ function WeatherApp() {
         setTemperature(data.current.temp_f);
         setCondition(data.current.condition.text);
         setCurrentConditionIcon(data.current.condition.icon);
-        setCurrentLocationName(`${data.location.name}, ${data.location.region}`);
+        setCurrentLocationName(` @ ${data.location.name}, ${data.location.region}`);
         setForecastData(data.forecast.forecastday);
         
         setLoading(false);
@@ -56,7 +57,8 @@ function WeatherApp() {
 
     useEffect(() => {
         fetchWeather();
-    }, []); // Fetch weather data on component mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="app">
@@ -67,13 +69,10 @@ function WeatherApp() {
             {loading ? <p>Loading...</p> : (
                 <>
                     <div className="current-weather">
-                        <h2>Current Weather</h2>
-                        <p>Temperature: {temperature}-°F</p>
-                        <p>Condition: {condition}</p>
-                        <img src={currentConditionIcon} alt="Current Weather"></img>
+                        {createCurrentWeather(temperature, condition, currentConditionIcon)}
                     </div>
                     <div className="forecast-container">
-                        {forecastData.length !== 0 ? createForecastCards(forecastData) : "No forecast data available"}
+                        {createForecastCards(forecastData)}
                     </div>
                 </>
             )}
