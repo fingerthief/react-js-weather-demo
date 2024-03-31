@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+
+$font-family: 'Roboto', sans-serif;
+$body-bgcolor: #222;
+$weather-container-bgcolor: #2c2b2b;
+$forecast-card-margin: 6px;
+
+body, html, #root, .app {
+    height: 100%;
+    margin: 0;
+    color: #fff;
+    background-color: $body-bgcolor;
+    font-family: $font-family;
+}
+
+.app-header {
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
+    background-color: $body-bgcolor;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.location-input-container input[type='text'] {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 400px;
+    background-color: $weather-container-bgcolor;
+    color: #ddd;
+    font-size: 16px;
+}
+
+.current-weather, .forecast-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px; 
+    padding: 30px; 
+    border-radius: 10px;
+    background: linear-gradient(145deg, $body-bgcolor, $weather-container-bgcolor); 
+    width: 90%;
+    max-width:75vw;
+    max-height: 50vh;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+
+    h1, h2, p {
+        font-weight: bold; 
+        color: #ffffff; 
+    }
+}
+
+
+.forecast-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    min-height: 38vh;
+}
+
+.forecast-card {
+    background-color: #444;
+    padding: 15px;
+    border-radius: 10px;
+    margin: $forecast-card-margin;
+    min-width: 15vw;
+    transition: transform .2s;
+    min-height: 33vh;
+
+    text-align: center;
+
+    img {
+        width: 85px;
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}

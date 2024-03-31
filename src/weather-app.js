@@ -1,78 +1,47 @@
-import React, { useState, useEffect } from "react";
-import "./weather-app.css";
+import React, { useState, useEffect, useCallback } from "react";
+import "./styles/weather-app.css";
 import { createForecastCards } from "./functions/forecast-utils";
-import { createCurrentWeather } from "./functions/current-weather-utils";
-
-const weatherApiKey = process.env.REACT_APP_WEATHER_API_KEY;
-
-const fetchWeatherData = async (location) => {
-    try {
-        if (!location) {
-            return null;
-        }
-
-        const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${location}&days=5`);
-        const data = await response.json();
-
-        return data;
-    } catch (error) {
-        console.error("Error fetching weather data:", error);
-        return null;
-    }
-};
+import { createCurrentWeather, fetchWeatherData } from "./functions/current-weather-utils";
 
 function WeatherApp() {
     const [location, setLocation] = useState("");
-    const [temperature, setTemperature] = useState("");
-    const [condition, setCondition] = useState("");
-    const [currentConditionIcon, setCurrentConditionIcon] = useState("");
-    const [forecastData, setForecastData] = useState([]);
-    const [currentLocationName, setCurrentLocationName] = useState("");
+    const [data, setData] = useState({});
     const [loading, setLoading] = useState(false);
 
-    const fetchWeather = async () => {
+    const fetchWeather = useCallback(async () => {
+        if (!location) return;
+
         setLoading(true);
 
-        const data = await fetchWeatherData(location);
+        const fetchedData = await fetchWeatherData(location);
 
-        if (!data) {
-            setLoading(false);
-            return;
-        }
+        setData(fetchedData || {});
 
-        setTemperature(data.current.temp_f);
-        setCondition(data.current.condition.text);
-        setCurrentConditionIcon(data.current.condition.icon);
-        setCurrentLocationName(` @ ${data.location.name}, ${data.location.region}`);
-        setForecastData(data.forecast.forecastday);
-        
         setLoading(false);
-    };
+    }, [location]);
 
-    const handleKeyPress = (e) => {
-        if (e.key === "Enter") {
-            fetchWeather();
-        }
-    };
+    const handleKeyPress = (e) => e.key === "Enter" && fetchWeather();
 
-    useEffect(() => {
-        fetchWeather();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const isLoading = loading;
 
     return (
         <div className="app">
-            <header className="app-header">MinimalWeather {currentLocationName}</header>
+            <header className="app-header">{(data.location?.name || data.location?.region) ?
+                `MinimalWeather @ ${data.location?.name ?? ""}, ${data.location?.region ?? ""}` : "MinimalWeather"}
+            </header>
+
             <div className="location-input-container">
-                <input type="text" placeholder="Enter your location" value={location} onChange={e => setLocation(e.target.value)} onKeyPress={handleKeyPress} />
+                <input type="text" placeholder="Enter your location" value={location} onChange={(e) => setLocation(e.target.value)} onKeyPress={handleKeyPress} />
             </div>
-            {loading ? <p>Loading...</p> : (
+
+            {isLoading ? <p>Loading...</p> : (
                 <>
                     <div className="current-weather">
-                        {createCurrentWeather(temperature, condition, currentConditionIcon)}
+                        {createCurrentWeather(data?.current?.temp_f, data?.current?.condition?.text, data?.current?.condition?.icon)}
                     </div>
+
                     <div className="forecast-container">
-                        {createForecastCards(forecastData)}
+                        {createForecastCards(data?.forecast?.forecastday ?? [])}
                     </div>
                 </>
             )}

@@ -7,7 +7,9 @@ function ForecastCard({ date, day }) {
             <p>{day.condition.text}</p>
             <p>Max: {day.maxtemp_f}°F</p>
             <p>Min: {day.mintemp_f}°F</p>
-            <img src={day.condition.icon} alt="Forecast"></img>
+            <div class="forecast-icon">
+                <img src={day.condition.icon} alt="Forecast"></img>
+            </div>
         </div>
     );
 }
