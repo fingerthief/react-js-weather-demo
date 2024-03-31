@@ -15,7 +15,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "scss-build": "sass ./src/styles/weather-app.scss ./src/styles/weather-app.css",
+    "scss-build": "sass ./src/styles/pages/weather-app.scss ./src/styles/pages/weather-app.css",
     "start": "npm run scss-build && npm run build && npm run start-server",
     "start-server": "http-server ./build -p 8080 --cors",
     "build": "react-scripts build",

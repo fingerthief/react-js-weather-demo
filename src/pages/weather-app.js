@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
-import "./styles/weather-app.css";
-import { createForecastCards } from "./functions/forecast-utils";
-import { createCurrentWeather, fetchWeatherData } from "./functions/current-weather-utils";
+import React, { useState, useCallback } from "react";
+import "../styles/pages/weather-app.css";
+import { createForecastCards } from "../functions/forecast-utils";
+import { createCurrentWeather, fetchWeatherData } from "../functions/current-weather-utils";
 
 function WeatherApp() {
     const [location, setLocation] = useState("");

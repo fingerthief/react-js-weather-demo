@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import WeatherApp from '../weather-app';
+import WeatherApp from '../pages/weather-app';
 import { fetchWeatherData } from '../functions/current-weather-utils';
 
 jest.mock('../functions/current-weather-utils', () => ({
